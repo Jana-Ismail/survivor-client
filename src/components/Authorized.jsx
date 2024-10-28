@@ -6,7 +6,6 @@ export const Authorized = () => {
     const { token } = useAppContext()
   if (token) {
     return <>
-      <NavBar />
       <main className="p-4">
         <Outlet />
       </main>
