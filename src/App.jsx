@@ -1,11 +1,16 @@
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+import { AuthProvider } from './context/state'
+import { ApplicationViews } from './components/ApplicationViews'
+// import './App.css'
 
 function App() {
 
   return (
-    <>
-      Welcome to my blank app!
-    </>
+    <BrowserRouter>
+      <AuthProvider>
+        <ApplicationViews />
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
