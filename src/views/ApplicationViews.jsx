@@ -3,10 +3,10 @@ import { Login } from "../pages/Login"
 import { Register } from "../pages/Register"
 import { Authorized } from "./Authorized"
 import Home from "../pages/Home"
-import { SeasonLogsList } from "../components/season-logs/SeasonLogsList"
+import { SeasonLogsList } from "../components/seasonLogs/SeasonLogsList"
 import { NavBar } from "../components/navbar/Navbar"
-import { SeasonLogDetail } from "../components/season-logs/SeasonLogDetail"
-import { SeasonLogForm } from "../components/season-logs/SeasonLogForm"
+import { SeasonLogDetail } from "../components/seasonLogs/SeasonLogDetail"
+import { SeasonLogForm } from "../components/seasonLogs/SeasonLogForm"
 
 export const ApplicationViews = () => {
     return (
@@ -20,8 +20,11 @@ export const ApplicationViews = () => {
                         {/* <Route path="/" element={<Home />} /> */}
                         <Route path="/season-logs"> 
                             <Route index element={<SeasonLogsList />} />
-                            <Route path=":seasonLogId" element={<SeasonLogDetail />} />
                             <Route path="create" element={<SeasonLogForm />} />
+                            <Route path=":seasonLogId" >
+                                <Route index element={<SeasonLogDetail />}/>
+                                <Route path="survivors/:survivorId" element={<>Survivor Details and Notes here</>} />
+                            </Route>
                         </Route>
                     </Route>
                 </Routes>

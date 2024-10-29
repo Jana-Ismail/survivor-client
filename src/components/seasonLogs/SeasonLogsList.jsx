@@ -10,12 +10,16 @@ export const SeasonLogsList = () => {
     const [completedLogs, setCompletedLogs] = useState([])
     const [inactiveLogs, setInactiveLogs] = useState([])
 
-    useEffect(() => {
+    const getAndSetSeasonLogs = () => {
         getSeasonLogs().then(seasonLogsData => {
             if (seasonLogsData) {
                 setSeasonLogs(seasonLogsData)
             }
         })
+    }
+
+    useEffect(() => {
+        getAndSetSeasonLogs()
     }, [])
 
     useEffect(() => {
@@ -31,7 +35,8 @@ export const SeasonLogsList = () => {
             <h3>Actively Watching</h3>
             {activeLogs?.map((log) => {
                 return(
-                    <Link to={`/season-logs/${log.id}`} key={log.id}>
+                    <Link to={`/season-logs/${log.id}`} key={log.id} state={{log}}>
+                    {/* <Link to={`/season-logs/${log.season.season_number}`} key={log.id} state={{log: log}}> */}
                         <div>Season #{log.season.season_number}</div>
                     </Link>
                 )
