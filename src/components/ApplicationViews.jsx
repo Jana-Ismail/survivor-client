@@ -5,6 +5,7 @@ import { Authorized } from "./Authorized"
 import Home from "../pages/Home"
 import { SeasonLogsList } from "./season-logs/SeasonLogsList"
 import { NavBar } from "./Navbar"
+import { SeasonLogDetail } from "./season-logs/SeasonLogDetail"
 
 export const ApplicationViews = () => {
     return (
@@ -16,8 +17,10 @@ export const ApplicationViews = () => {
                     <Route path="/register" element={<Register />} />
                     <Route element={<Authorized />}>
                         {/* <Route path="/" element={<Home />} /> */}
-                        <Route path="/seasons" element={<SeasonLogsList />}>
-                            <Route path="survivors" element={<>test!</>}/>
+                        <Route path="/season-logs"> 
+                            <Route index element={<SeasonLogsList />} />
+                            <Route path=":seasonLogId" element={<SeasonLogDetail />} />
+                            <Route path="create" element={<>Start a Season Log</>} />
                         </Route>
                     </Route>
                 </Routes>

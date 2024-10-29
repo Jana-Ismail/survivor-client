@@ -7,3 +7,11 @@ export const getSeasonLogs = () => {
         }
     })
 }
+
+export const getSeasonLogById = (id) => {
+    return fetchWithResponse(`season-logs/${id}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
+}

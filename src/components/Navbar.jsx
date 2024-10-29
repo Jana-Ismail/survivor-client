@@ -19,7 +19,7 @@ export const NavBar = () => {
             {token ?
                 <>
                     <li className="navbar__item pl-10">
-                        <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/seasons"}>Seasons</NavLink>
+                        <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/season-logs"}>Seasons</NavLink>
                     </li>
                     <li className="navbar__item">
                         <button className="underline text-blue-600 hover:text-purple-700"
