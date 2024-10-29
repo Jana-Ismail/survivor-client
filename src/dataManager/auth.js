@@ -1,6 +1,6 @@
 import { fetchWithResponse } from "./fetcher"
 
-export function login(user) {
+export const login = (user) => {
   return fetchWithResponse('login', {
     method: 'POST',
     headers: {
@@ -10,7 +10,7 @@ export function login(user) {
   })
 }
 
-export function register(user) {
+export const register = (user) => {
   return fetchWithResponse('register', {
     method: 'POST',
     headers: {

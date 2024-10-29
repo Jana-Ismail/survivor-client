@@ -19,7 +19,7 @@ export const Login = () => {
         }
 
         login(user).then((res) => {
-            if (res.token) {
+            if (res && res.token) {
                 setToken(res.token)
                 navigate('/')
             } else {
