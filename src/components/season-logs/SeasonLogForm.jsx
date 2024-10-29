@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { createSeasonLog } from "../../dataManager/seasonLogs"
+import { createSeasonLog } from "../../dataManagers/seasonLogs"
 
 export const SeasonLogForm = () => {
     const location = useLocation()

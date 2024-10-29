@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getSeasonLogById } from "../../dataManager/seasonLogs"
+import { getSeasonLogById } from "../../dataManagers/seasonLogs"
 
 export const SeasonLogDetail = () => {
     const {seasonLogId} = useParams()

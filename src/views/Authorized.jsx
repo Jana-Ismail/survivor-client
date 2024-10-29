@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { NavBar } from "./Navbar.jsx"
+import { NavBar } from "../components/navbar/Navbar.jsx"
 import { useAppContext } from "../context/state.jsx"
 
 export const Authorized = () => {
