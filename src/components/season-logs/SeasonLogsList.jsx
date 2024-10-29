@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAppContext } from "../../context/state"
 import { getSeasonLogs } from "../../dataManager/seasonLogs"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export const SeasonLogsList = () => {
     const {token} = useAppContext()
@@ -28,7 +28,7 @@ export const SeasonLogsList = () => {
 
     return (
         <div>
-            <h3>Active Logs</h3>
+            <h3>Actively Watching</h3>
             {activeLogs?.map((log) => {
                 return(
                     <Link to={`/season-logs/${log.id}`} key={log.id}>
@@ -36,11 +36,18 @@ export const SeasonLogsList = () => {
                     </Link>
                 )
             })}
-            <h3>Completed Logs</h3>
-            <h3>Unlogged Seasons</h3>
+            <h3>Completed</h3>
+            {completedLogs?.map((log) => {
+                return (
+                    <Link to={`/season-logs/${log.id}`} key={log.id}>
+                        <div>Season #{log.season.season_number}</div>
+                    </Link>
+                )
+            })}
+            <h3>Unwatched Seasons</h3>
             {inactiveLogs?.map((season) => {
                 return(
-                    <Link to={`/season-logs/create`} key={season.id}>
+                    <Link to={`/season-logs/create`} key={season.id} state={{season: season}}>
                         <div>Season #{season.season_number}</div>
                     </Link> 
                 )

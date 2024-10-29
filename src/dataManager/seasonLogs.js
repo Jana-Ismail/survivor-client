@@ -15,3 +15,14 @@ export const getSeasonLogById = (id) => {
         }
     })
 }
+
+export const createSeasonLog = (id) => {
+    return fetchWithResponse(`season-logs`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({"season_id": id})
+    }) 
+}

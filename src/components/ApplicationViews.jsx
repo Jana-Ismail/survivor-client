@@ -6,6 +6,7 @@ import Home from "../pages/Home"
 import { SeasonLogsList } from "./season-logs/SeasonLogsList"
 import { NavBar } from "./Navbar"
 import { SeasonLogDetail } from "./season-logs/SeasonLogDetail"
+import { SeasonLogForm } from "./season-logs/SeasonLogForm"
 
 export const ApplicationViews = () => {
     return (
@@ -20,7 +21,7 @@ export const ApplicationViews = () => {
                         <Route path="/season-logs"> 
                             <Route index element={<SeasonLogsList />} />
                             <Route path=":seasonLogId" element={<SeasonLogDetail />} />
-                            <Route path="create" element={<>Start a Season Log</>} />
+                            <Route path="create" element={<SeasonLogForm />} />
                         </Route>
                     </Route>
                 </Routes>
