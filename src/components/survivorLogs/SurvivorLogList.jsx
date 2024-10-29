@@ -18,7 +18,7 @@ export const SurvivorLogList = ({ seasonLog }) => {
             <h3>Survivor Cards Here</h3>
             {survivorLogs.map((survivor) => {
                 return (
-                    <Link to={`/survivor-log/${seasonLog.id}/survivors/${survivor.id}`} key={survivor.id}>
+                    <Link to={`/season-logs/${seasonLog.id}/survivors/${survivor.id}`} key={survivor.id}>
                         <div>{survivor.survivor.first_name}</div>
                     </Link>
                 )
