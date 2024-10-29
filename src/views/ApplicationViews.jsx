@@ -3,10 +3,10 @@ import { Login } from "../pages/Login"
 import { Register } from "../pages/Register"
 import { Authorized } from "./Authorized"
 import Home from "../pages/Home"
-import { SeasonLogsList } from "./season-logs/SeasonLogsList"
-import { NavBar } from "./Navbar"
-import { SeasonLogDetail } from "./season-logs/SeasonLogDetail"
-import { SeasonLogForm } from "./season-logs/SeasonLogForm"
+import { SeasonLogsList } from "../components/season-logs/SeasonLogsList"
+import { NavBar } from "../components/navbar/Navbar"
+import { SeasonLogDetail } from "../components/season-logs/SeasonLogDetail"
+import { SeasonLogForm } from "../components/season-logs/SeasonLogForm"
 
 export const ApplicationViews = () => {
     return (

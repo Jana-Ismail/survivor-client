@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from '../context/state'
-import { login } from "../dataManager/auth";
+import { login } from "../dataManagers/auth";
 import "./Login.css"
 
 export const Login = () => {

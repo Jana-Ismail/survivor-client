@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useAppContext } from "../../context/state"
-import { getSeasonLogs } from "../../dataManager/seasonLogs"
+import { getSeasonLogs } from "../../dataManagers/seasonLogs"
 import { Link } from "react-router-dom"
 
 export const SeasonLogsList = () => {
