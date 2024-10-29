@@ -5,7 +5,7 @@ import { Authorized } from "./Authorized"
 import Home from "../pages/Home"
 import { SeasonLogsList } from "../components/seasonLogs/SeasonLogsList"
 import { NavBar } from "../components/navbar/Navbar"
-import { SeasonLogDetail } from "../components/seasonLogs/SeasonLogDetail"
+import { SeasonLogDetails } from "../components/seasonLogs/SeasonLogDetails"
 import { SeasonLogForm } from "../components/seasonLogs/SeasonLogForm"
 
 export const ApplicationViews = () => {
@@ -22,7 +22,7 @@ export const ApplicationViews = () => {
                             <Route index element={<SeasonLogsList />} />
                             <Route path="create" element={<SeasonLogForm />} />
                             <Route path=":seasonLogId" >
-                                <Route index element={<SeasonLogDetail />}/>
+                                <Route index element={<SeasonLogDetails />}/>
                                 <Route path="survivors/:survivorId" element={<>Survivor Details and Notes here</>} />
                             </Route>
                         </Route>
