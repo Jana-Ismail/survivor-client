@@ -1,4 +1,3 @@
-/* SeasonLogs.css */
 .season-logs-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -17,32 +16,30 @@
 }
 
 .seasons-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
 .season-card {
     background: white;
     border: 1px solid #e5e7eb;
     padding: 1rem;
-    width: calc(25% - 2px); /* 4 cards per row, accounting for borders */
-    min-width: 150px;
-}
-
-.season-number {
-    font-size: 1rem;
-    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .season-card {
-        width: calc(33.333% - 2px); /* 3 cards per row on medium screens */
+    .seasons-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .season-card {
-        width: calc(50% - 2px); /* 2 cards per row on mobile */
+    .seasons-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

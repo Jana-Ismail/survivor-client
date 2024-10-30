@@ -1,14 +1,14 @@
 import { useRef } from "react"
 import { createSurvivorNote } from "../../dataManagers/survivorNotes"
 
-export const SurvivorNoteForm = ({ survivorLog, seasonLogId }) => {
+export const SurvivorNoteForm = ({ survivorLog, seasonLogId, getAndSetNotes }) => {
     const note = useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const noteText = note.current.value
-        if (!note) return // Don't submit empty notes
+        if (!noteText) return // Don't submit empty notes
 
         const newNote = {
             text: noteText
@@ -18,7 +18,13 @@ export const SurvivorNoteForm = ({ survivorLog, seasonLogId }) => {
             seasonLogId,
             survivorLog.id,
             newNote
-        )
+        ).then((data) => {
+            if (data) {
+                note.current.value=""
+                getAndSetNotes()
+            }
+        })
+        
     }
     return (
         <form onSubmit={handleSubmit}>

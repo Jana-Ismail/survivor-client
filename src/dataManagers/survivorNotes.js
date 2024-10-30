@@ -18,3 +18,24 @@ export const createSurvivorNote = (seasonLogId, survivorLogId, note) => {
         body: JSON.stringify(note)
     })
 }
+
+export const editSurvivorNote = (seasonLogId, survivorLogId, note) => {
+    return fetchWithResponse(`season-logs/${seasonLogId}/survivors/${survivorLogId}/notes/${note.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(note)
+    })
+}
+
+export const deleteSurvivorNote = (seasonLogId, survivorLogId, note) => {
+    return fetchWithResponse(`season-logs/${seasonLogId}/survivors/${survivorLogId}/notes/${note.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        },
+    })
+}
