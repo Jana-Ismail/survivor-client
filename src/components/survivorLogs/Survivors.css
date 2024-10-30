@@ -95,3 +95,60 @@
         font-size: 0.9rem;
     }
 }
+
+
+.details-card-container .survivor-card {
+    max-width: 300px;  /* Smaller width for the detail view */
+    margin: 0 auto;
+    transform: none;  /* Disable hover transform if desired */
+}
+
+.details-card-container .survivor-image-container {
+    padding-top: 125%;  /* Maintain aspect ratio */
+}
+
+/* Stats styling */
+.stats-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.stat-group {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+}
+
+.stat-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.stat-label {
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.stat-value {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .details-card-container .survivor-card {
+        max-width: 250px;  /* Even smaller on mobile */
+    }
+    
+    .stat-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}

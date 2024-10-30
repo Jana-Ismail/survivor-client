@@ -7,6 +7,7 @@ import { SeasonLogsList } from "../components/seasonLogs/SeasonLogsList"
 import { NavBar } from "../components/navbar/Navbar"
 import { SeasonLogDetails } from "../components/seasonLogs/SeasonLogDetails"
 import { SeasonLogForm } from "../components/seasonLogs/SeasonLogForm"
+import { SurvivorLogDetails } from "../components/survivorLogs/SurvivorLogDetails"
 
 export const ApplicationViews = () => {
     return (
@@ -23,7 +24,7 @@ export const ApplicationViews = () => {
                             <Route path="create" element={<SeasonLogForm />} />
                             <Route path=":seasonLogId" >
                                 <Route index element={<SeasonLogDetails />}/>
-                                <Route path="survivors/:survivorId" element={<>Survivor Details and Notes here</>} />
+                                <Route path="survivors/:survivorId" element={<SurvivorLogDetails />} />
                             </Route>
                         </Route>
                     </Route>
