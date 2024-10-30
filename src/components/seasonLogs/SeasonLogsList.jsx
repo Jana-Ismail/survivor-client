@@ -35,7 +35,7 @@ export const SeasonLogsList = () => {
         <div className="season-logs-container">
             {/* Active Seasons Section */}
             <div className="season-section active-section">
-                <h2 className="section-title">Active</h2>
+                <h2 className="section-title">Active Logs</h2>
                 <div className="seasons-grid">
                     {activeLogs?.map((log) => (
                         <Link 
@@ -44,6 +44,7 @@ export const SeasonLogsList = () => {
                             state={{ log }}
                         >
                             <div className="season-card">
+                                <div className="season-number season-title">{log.season.name}</div>
                                 <div className="season-number">Season #{log.season.season_number}</div>
                                 {/* Add any additional season info you want to display */}
                             </div>
@@ -54,7 +55,7 @@ export const SeasonLogsList = () => {
 
             {/* Completed Seasons Section */}
             <div className="season-section completed-section">
-                <h2 className="section-title">Complete</h2>
+                <h2 className="section-title">Completed Logs</h2>
                 <div className="seasons-grid">
                     {completedLogs?.map((log) => (
                         <Link 
@@ -63,6 +64,7 @@ export const SeasonLogsList = () => {
                             state={{ log }}
                         >
                             <div className="season-card">
+                                <div className="season-number season-title">{log.season.name}</div>
                                 <div className="season-number">Season #{log.season.season_number}</div>
                             </div>
                         </Link>
@@ -72,7 +74,7 @@ export const SeasonLogsList = () => {
 
             {/* Unwatched Seasons Section */}
             <div className="season-section unwatched-section">
-                <h2 className="section-title">Inactive</h2>
+                <h2 className="section-title">Inactive Seasons</h2>
                 <div className="seasons-grid">
                     {inactiveLogs?.map((season) => (
                         <Link 
@@ -81,6 +83,7 @@ export const SeasonLogsList = () => {
                             state={{ season }}
                         >
                             <div className="season-card">
+                                <div className="season-number season-title">{season.name}</div>
                                 <div className="season-number">Season #{season.season_number}</div>
                             </div>
                         </Link>
