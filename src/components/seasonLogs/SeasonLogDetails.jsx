@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getSeasonLogById } from "../../dataManagers/seasonLogs"
 import { SurvivorLogList } from "../survivorLogs/survivorLogList"
 
-export const SeasonLogDetail = () => {
+export const SeasonLogDetails = () => {
     const { seasonLogId } = useParams()
     const location = useLocation()
     const navigate = useNavigate()
