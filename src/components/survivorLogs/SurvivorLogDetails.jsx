@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { SurvivorLogCard } from "./SurvivorLogCard"
+import { SurvivorNotesList } from "../survivorNotes/SurvivorNotesList"
 
 export const SurvivorLogDetails = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const { seasonLogId, survivorId} = useParams()
+    const { seasonLogId, survivorLogId} = useParams()
 
     // Get the survivor log from state or set to null if not available
     const [survivorLog, setSurvivorLog] = useState(location.state?.survivorLog || {})
@@ -14,10 +15,16 @@ export const SurvivorLogDetails = () => {
     // If needed, fetch the survivor log if accessing page directly
 
     useEffect(() => {
-        if (!survivorLog && survivorId) {
+        if (!survivorLog && survivorLogId) {
             // fetch survivor log here
         }
-    }, [survivorId])
+    }, [survivorLogId])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+
+    }
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
@@ -84,6 +91,8 @@ export const SurvivorLogDetails = () => {
                     className="w-full p-3 border rounded-md min-h-[150px] focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Add notes about this survivor..."
                 />
+                <button onClick={handleSubmit}></button>
+                <SurvivorNotesList />
             </div>
         </div>
     )
