@@ -16,7 +16,7 @@ export const SurvivorNotesList = () => {
 
     useEffect(() => {
         getAndSetNotes()
-    }, [survivorLogId])
+    }, [survivorLogId, notes])
 
     return (
         <div>

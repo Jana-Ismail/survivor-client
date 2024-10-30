@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { SurvivorLogCard } from "./SurvivorLogCard"
 import { SurvivorNotesList } from "../survivorNotes/SurvivorNotesList"
+import { SurvivorNoteForm } from "../survivorNotes/SurvivorNoteForm"
 
 export const SurvivorLogDetails = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const { seasonLogId, survivorLogId} = useParams()
+    const [note, setNote] = useState()
 
     // Get the survivor log from state or set to null if not available
     const [survivorLog, setSurvivorLog] = useState(location.state?.survivorLog || {})
@@ -19,12 +21,6 @@ export const SurvivorLogDetails = () => {
             // fetch survivor log here
         }
     }, [survivorLogId])
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-
-    }
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
@@ -87,11 +83,9 @@ export const SurvivorLogDetails = () => {
             {/* Bottom section - Notes */}
             <div className="bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold mb-4">Notes</h2>
-                <textarea 
-                    className="w-full p-3 border rounded-md min-h-[150px] focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Add notes about this survivor..."
-                />
-                <button onClick={handleSubmit}></button>
+                <SurvivorNoteForm survivorLog={survivorLog} seasonLogId={seasonLogId}/>
+            </div>
+            <div>
                 <SurvivorNotesList />
             </div>
         </div>
