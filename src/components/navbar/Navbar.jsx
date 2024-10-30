@@ -1,45 +1,71 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import "./Navbar.css"
 import { useAppContext } from "../../context/state"
 
 export const NavBar = () => {
     const { token, setToken } = useAppContext()
     const navigate = useNavigate()
     
+    const linkStyles = "text-gray-200 hover:text-white font-medium transition-colors duration-200"
+    const activeLinkStyles = "text-white font-semibold"
+    
     return (
-        <ul className="navbar pb-10">
-            <li className="navbar__item">
-                <NavLink 
-                    className="text-blue-600 hover:text-purple-700 underline"
-                    to="/"
-                >
-                    Home
-                </NavLink>
-            </li>
-            {token ?
-                <>
-                    <li className="navbar__item pl-10">
-                        <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/season-logs"}>Seasons</NavLink>
-                    </li>
-                    <li className="navbar__item">
-                        <button className="underline text-blue-600 hover:text-purple-700"
-                            onClick={() => {
-                                localStorage.removeItem("token")
-                                setToken("")
-                                navigate('/login')
-                            }}
-                        >Logout</button>
-                    </li> 
-                </> :
-                    <>
-                        <li className="navbar__item">
-                            <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/login"}>Login</NavLink>
-                        </li>
-                        <li className="navbar__item">
-                            <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/register"}>Register</NavLink>
-                        </li>
-                    </>
-            }        
-        </ul>
+        <nav className="bg-gray-700 shadow-md">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex items-center justify-between h-16">
+                    <div className="flex space-x-8">
+                        <NavLink 
+                            to="/"
+                            className={({ isActive }) => 
+                                isActive ? activeLinkStyles : linkStyles
+                            }
+                        >
+                            Home
+                        </NavLink>
+                        {token && (
+                            <NavLink 
+                                to="/season-logs"
+                                className={linkStyles}
+                            >
+                                Seasons
+                            </NavLink>
+                        )}
+                    </div>
+                    
+                    <div className="flex space-x-8">
+                        {token ? (
+                            <button 
+                                className={`${linkStyles} hover:text-red-300`}
+                                onClick={() => {
+                                    localStorage.removeItem("token")
+                                    setToken("")
+                                    navigate('/login')
+                                }}
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <>
+                                <NavLink 
+                                    to="/login"
+                                    className={({ isActive }) => 
+                                        isActive ? activeLinkStyles : linkStyles
+                                    }
+                                >
+                                    Login
+                                </NavLink>
+                                <NavLink 
+                                    to="/register"
+                                    className={({ isActive }) => 
+                                        isActive ? activeLinkStyles : linkStyles
+                                    }
+                                >
+                                    Register
+                                </NavLink>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </nav>
     )
 }
