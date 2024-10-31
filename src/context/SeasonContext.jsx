@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback } from 'react'
 import { getSeasonLogById } from '../dataManagers/seasonLogs'
-import { getSurvivorLogs } from '../dataManagers/survivorLogs'
+import { getSurvivorLogs, getWinnerPick, updateWinnerPick as updateWinnerPick } from '../dataManagers/survivorLogs'
 import { createSurvivorNote, deleteSurvivorNote, editSurvivorNote, getNotesBySurvivorLogId } from '../dataManagers/survivorNotes'
 
 const SeasonContext = createContext()
@@ -9,7 +9,22 @@ export const SeasonProvider = ({ children }) => {
     const [seasonLog, setSeasonLog] = useState(null)
     const [survivorLogs, setSurvivorLogs] = useState([])
     const [survivorNotes, setSurvivorNotes] = useState([])
+    const [winnerPick, setWinnerPick] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+
+    const loadWinnerPick = useCallback(async (seasonLogId) => {
+        try {
+            const winnerPickData = await getWinnerPick(seasonLogId)
+            if (winnerPickData) {
+                setWinnerPick(winnerPickData)
+            } else {
+                setWinnerPick(null)
+            }
+        } catch (error) {
+            console.error('Error loading winner pick:', error)
+            setWinnerPick(null)
+        }
+    }, [])
 
     const loadSeasonData = useCallback(async (seasonLogId) => {
         setIsLoading(true)
@@ -19,13 +34,14 @@ export const SeasonProvider = ({ children }) => {
                 setSeasonLog(seasonLogData)
                 const survivorLogData = await getSurvivorLogs(seasonLogData.id)
                 setSurvivorLogs(survivorLogData)
+                await loadWinnerPick(seasonLogId)
             }
         } catch (error) {
             console.error('Error loading season data:', error)
         } finally {
             setIsLoading(false)
         }
-    }, [])
+    }, [loadWinnerPick])
 
     const loadSurvivorNotes = useCallback(async (seasonLogId, survivorLogId) => {
         try {
@@ -82,13 +98,32 @@ export const SeasonProvider = ({ children }) => {
             setSeasonLog(seasonLogData)
             const survivorLogData = await getSurvivorLogs(seasonLogData.id)
             setSurvivorLogs(survivorLogData)
+            await loadWinnerPick(seasonLog.id)
           }
         } catch (error) {
           console.error('Error refreshing season data:', error)
         } finally {
           setIsLoading(false)
         }
-    }, [seasonLog?.id])
+    }, [seasonLog?.id, loadWinnerPick])
+
+    const changeWinnerPick = useCallback(async (seasonLogId, survivorLogId) => {
+        try {
+            const result = await updateWinnerPick(seasonLogId, survivorLogId)
+            if (result) {
+                // Update local state with the new winner pick
+                const updatedWinnerPick = survivorLogs.find(survivor => survivor.id === survivorLogId)
+                setWinnerPick(updatedWinnerPick || null)
+                
+                // Optionally refresh the full season data if needed
+                await loadSeasonData(seasonLogId)
+                // await loadWinnerPick(seasonLogId)
+                
+            }
+        } catch (error) {
+            console.error('Error updating winner pick:', error)
+        }
+    }, [survivorLogs, loadSeasonData])
 
     const contextValue = {
         seasonLog,
@@ -102,7 +137,9 @@ export const SeasonProvider = ({ children }) => {
         addNote,
         updateNote,
         removeNote,
-        getSurvivorLog
+        getSurvivorLog,
+        winnerPick,
+        changeWinnerPick,    
     }
     
     return (
