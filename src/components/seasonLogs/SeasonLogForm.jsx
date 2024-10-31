@@ -1,19 +1,24 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { createSeasonLog } from "../../dataManagers/seasonLogs"
+import { useSeasonContext } from "../../context/seasonContext"
 
 export const SeasonLogForm = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const { startSeasonLog, isLoading } = useSeasonContext()
     const season = location.state?.season
 
-    const handleSubmit = () => {
-        createSeasonLog(season.id).then((newSeasonLog) => {
-            if (newSeasonLog) {
-                navigate(`/season-logs/${newSeasonLog.id}`, {
-                    state: { log: newSeasonLog }
-                })
-            }
-        })
+    const handleSubmit = async () => {
+
+        if (!season?.id) return
+
+        const newSeasonLog = await startSeasonLog(season.id)
+        if (newSeasonLog?.id) {
+                navigate(`/season-logs/${newSeasonLog.id}`, {replace: true})
+        }
+    }
+
+    if (!season) {
+        return <div className="text-center p-4">No season selected</div>
     }
 
     return (
@@ -23,9 +28,11 @@ export const SeasonLogForm = () => {
             </h3>
             <button 
                 onClick={handleSubmit}
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                disabled={isLoading}
+                className={`bg-gray-500 text-white px-4 py-2 rounded 
+                    ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
             >
-                START LOG
+                {isLoading ? 'Creating Log...' : 'START LOG'}
             </button>
         </div>
     )

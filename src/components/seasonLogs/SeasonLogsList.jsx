@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 import './SeasonLogs.css'
 
 export const SeasonLogsList = () => {
-    const {token} = useAppContext()
     const [seasonLogs, setSeasonLogs] = useState([])
     const [activeLogs, setActiveLogs] =useState([])
     const [completedLogs, setCompletedLogs] = useState([])

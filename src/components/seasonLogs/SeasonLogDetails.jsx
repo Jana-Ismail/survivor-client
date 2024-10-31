@@ -9,19 +9,23 @@ export const SeasonLogDetails = () => {
     
 
     useEffect(() => {
-        loadSeasonData(seasonLogId)
+        if (seasonLogId) {
+            loadSeasonData(seasonLogId)
+        }
     }, [seasonLogId, loadSeasonData])
 
     if (isLoading) {
         return <div className="text-center p-4">Loading season log...</div>        
     }
 
-    if (!seasonLog) return <div>Loading...</div>
+    if (!seasonLog?.id) {
+        return <div className="text-center p-4">Season log not found</div>
+    }
 
     return (
         <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-center my-4">
-                Season #{seasonLog.season.season_number} Log
+                Season #{seasonLog.season?.season_number} Log
             </h2>
             
             <SeasonLogFilter />
