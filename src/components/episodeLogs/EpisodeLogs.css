@@ -1,0 +1,150 @@
+/* EpisodeLogs.css */
+.episode-form-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.episode-form-header {
+    margin-bottom: 1.5rem;
+}
+
+.episode-form-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.episode-number-input {
+    margin-top: 0.25rem;
+    display: block;
+    width: 8rem;
+    padding: 0.5rem 0.75rem;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.episode-number-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.episode-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.episode-table th {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+
+.episode-table td {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+}
+
+.episode-checkbox {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d1d5db;
+}
+
+.episode-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.form-error {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    color: #ef4444;
+    background-color: #fee2e2;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+.button-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.button-primary {
+    background-color: #2563eb;
+    color: white;
+}
+
+.button-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.button-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #2563eb;
+}
+
+.button-secondary {
+    background-color: white;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.button-secondary:hover {
+    background-color: #f9fafb;
+}
+
+.button-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #2563eb;
+}
+
+/* Add some responsive table handling */
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
+/* Add cell alignment utilities */
+.text-center {
+    text-align: center;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+.block {
+    display: block;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-gray-700 {
+    color: #374151;
+}

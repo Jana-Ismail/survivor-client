@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import { useAppContext } from '../context/state'
+import { useAppContext } from '../context/AuthContext'
 import { login } from "../dataManagers/auth";
 import "./Login.css"
 

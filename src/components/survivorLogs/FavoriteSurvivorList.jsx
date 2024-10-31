@@ -1,7 +1,7 @@
-import { useOutletContext } from "react-router-dom"
+import { useSeasonContext } from "../../context/seasonContext"
 
 export const FavoriteSurvivorList = () => {
-    const { seasonLog } = useOutletContext()
+    const { seasonLog, survivorLogs } = useSeasonContext()
     
     return (
         <div>

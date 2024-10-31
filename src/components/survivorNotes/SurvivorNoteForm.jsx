@@ -1,7 +1,10 @@
 import { useRef } from "react"
-import { createSurvivorNote } from "../../dataManagers/survivorNotes"
+import { useParams } from "react-router-dom"
+import { useSeasonContext } from "../../context/seasonContext"
 
-export const SurvivorNoteForm = ({ survivorLog, seasonLogId, getAndSetNotes }) => {
+export const SurvivorNoteForm = () => {
+    const { seasonLogId, survivorLogId } = useParams()
+    const { addNote } = useSeasonContext()
     const note = useRef()
 
     const handleSubmit = (e) => {
@@ -10,21 +13,9 @@ export const SurvivorNoteForm = ({ survivorLog, seasonLogId, getAndSetNotes }) =
         const noteText = note.current.value
         if (!noteText) return // Don't submit empty notes
 
-        const newNote = {
-            text: noteText
-        }
-
-        createSurvivorNote(
-            seasonLogId,
-            survivorLog.id,
-            newNote
-        ).then((data) => {
-            if (data) {
-                note.current.value=""
-                getAndSetNotes()
-            }
-        })
+        addNote(seasonLogId, survivorLogId, noteText)
         
+        note.current.value = ""
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -33,7 +24,7 @@ export const SurvivorNoteForm = ({ survivorLog, seasonLogId, getAndSetNotes }) =
                 placeholder="Add notes about this survivor..."
                 ref={note}
             />
-            <button>ADD NOTE</button>
+            <button type="submit">ADD NOTE</button>
         </form>
     )
 }

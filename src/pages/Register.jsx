@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 import { register } from "../dataManagers/auth";
-import { useAppContext } from "../context/state";
+import { useAppContext } from "../context/AuthContext";
 
 export const Register = () => {
     const { setToken } = useAppContext()

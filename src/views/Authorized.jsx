@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { NavBar } from "../components/navbar/Navbar.jsx"
-import { useAppContext } from "../context/state.jsx"
+import { useAppContext } from "../context/AuthContext.jsx"
 
 export const Authorized = () => {
     const { token } = useAppContext()
