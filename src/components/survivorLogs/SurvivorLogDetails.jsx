@@ -4,34 +4,27 @@ import { SurvivorLogCard } from "./SurvivorLogCard"
 import { SurvivorNotesList } from "../survivorNotes/SurvivorNotesList"
 import { SurvivorNoteForm } from "../survivorNotes/SurvivorNoteForm"
 import { getNotesBySurvivorLogId } from "../../dataManagers/survivorNotes"
+import { useSeasonContext } from "../../context/seasonContext"
 
 export const SurvivorLogDetails = () => {
-    const location = useLocation()
     const navigate = useNavigate()
     const { seasonLogId, survivorLogId } = useParams()
-    const [notes, setNotes] = useState([])
+    const {
+        seasonLog,
+        getSurvivorLog,
+        survivorNotes,
+        loadSurvivorNotes
+    } = useSeasonContext()
 
-    // Get the survivor log from state or set to null if not available
-    const [survivorLog, setSurvivorLog] = useState(location.state?.survivorLog || {})
-    const seasonLog = location.state?.seasonLog
-    
-    const getAndSetNotes = () => {
-        getNotesBySurvivorLogId(seasonLogId, survivorLogId).then((notesData) => {
-            if (notesData) {
-                setNotes(notesData)
-            }
-        })
-    }
+    const survivorLog = getSurvivorLog(survivorLogId) 
 
     useEffect(() => {
-        getAndSetNotes()
-    }, [survivorLogId])
+        if (seasonLogId && survivorLogId) {
+            loadSurvivorNotes(seasonLogId, survivorLogId)
+        }
+    }, [seasonLogId, survivorLogId, loadSurvivorNotes])
 
-    // useEffect(() => {
-    //     if (!survivorLog && survivorLogId) {
-    //         // fetch survivor log here
-    //     }
-    // }, [survivorLogId])
+    if (!survivorLog) return <div>Loading...</div>
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
@@ -94,19 +87,10 @@ export const SurvivorLogDetails = () => {
             {/* Bottom section - Notes */}
             <div className="bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold mb-4">Notes</h2>
-                <SurvivorNoteForm 
-                    survivorLog={survivorLog} 
-                    seasonLogId={seasonLogId} 
-                    getAndSetNotes={getAndSetNotes}
-                />
+                <SurvivorNoteForm />
             </div>
             <div>
-                <SurvivorNotesList 
-                    survivorLogId={survivorLogId} 
-                    seasonLogId={seasonLogId}
-                    notes={notes}
-                    getAndSetNotes={getAndSetNotes}
-                />
+                <SurvivorNotesList />
             </div>
         </div>
     )

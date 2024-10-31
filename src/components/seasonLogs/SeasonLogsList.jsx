@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAppContext } from "../../context/state"
+import { useAppContext } from "../../context/AuthContext"
 import { getSeasonLogs } from "../../dataManagers/seasonLogs"
 import { Link } from "react-router-dom"
 import './SeasonLogs.css'

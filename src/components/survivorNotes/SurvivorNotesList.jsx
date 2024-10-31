@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
 import { getNotesBySurvivorLogId, editSurvivorNote, deleteSurvivorNote } from "../../dataManagers/survivorNotes"
 import { useParams } from "react-router-dom"
+import { useSeasonContext } from "../../context/seasonContext"
 
-export const SurvivorNotesList = ({ notes, getAndSetNotes, seasonLogId, survivorLogId }) => {
+export const SurvivorNotesList = () => {
+    const { seasonLogId, survivorLogId } = useParams()
+    const { survivorNotes, updateNote, removeNote } = useSeasonContext()
     const [editNoteId, setEditNoteId] = useState(0)
     const [editText, setEditText] = useState("")
 
@@ -13,19 +16,13 @@ export const SurvivorNotesList = ({ notes, getAndSetNotes, seasonLogId, survivor
 
     const handleSave = (note) => {
         const updatedNote = { ...note, text: editText }
-        editSurvivorNote(seasonLogId, survivorLogId, updatedNote).then((data) => {
-            if (data) {
-                setEditNoteId(0)
-                getAndSetNotes()
-            }
-        })
+        updateNote(seasonLogId, survivorLogId, updatedNote)
+        setEditNoteId(0)
     }
 
     const handleDelete = (note) => {
         if (window.confirm("Are you sure you want to delete this note?")) {
-            deleteSurvivorNote(seasonLogId, survivorLogId, note).then((data) => {
-                getAndSetNotes()
-            })
+            removeNote(seasonLogId, survivorLogId, note)
         }
     }
 
@@ -36,7 +33,7 @@ export const SurvivorNotesList = ({ notes, getAndSetNotes, seasonLogId, survivor
 
     return (
         <div className="space-y-4 mt-4">
-            {notes?.map((note) => (
+            {survivorNotes?.map((note) => (
                 <div key={note.id} className="bg-gray-50 p-4 rounded-lg">
                     {editNoteId === note.id ? (
                         <div className="space-y-2">

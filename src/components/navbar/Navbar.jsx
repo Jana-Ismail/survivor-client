@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useAppContext } from "../../context/state"
+import { useAppContext } from "../../context/AuthContext"
 
 export const NavBar = () => {
     const { token, setToken } = useAppContext()

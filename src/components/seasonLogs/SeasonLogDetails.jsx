@@ -1,35 +1,16 @@
-import { useEffect, useState } from "react"
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
-import { getSeasonLogById } from "../../dataManagers/seasonLogs"
-import { SurvivorLogList } from "../survivorLogs/survivorLogList"
+import { useEffect } from "react"
+import { Outlet, useParams } from "react-router-dom"
 import { SeasonLogFilter } from "./SeasonLogFilterBar"
+import { useSeasonContext } from "../../context/seasonContext"
 
 export const SeasonLogDetails = () => {
     const { seasonLogId } = useParams()
-    const location = useLocation()
-    const navigate = useNavigate()
-
-    // Use the log from state if available
-    const [seasonLog, setSeasonLog] = useState(location.state?.log || null)
-    const [isLoading, setIsLoading] = useState(true)
+    const { seasonLog, isLoading, loadSeasonData } = useSeasonContext()
     
-    const getAndSetSeasonLog = () => {
-        setIsLoading(true)
-        getSeasonLogById(seasonLogId).then(seasonLogData => {
-            if (seasonLogData) {
-                setSeasonLog(seasonLogData)
-                setIsLoading(false)
-            }
-        })
-    }
 
     useEffect(() => {
-        getAndSetSeasonLog()
-
-        if (seasonLogId) {
-            getAndSetSeasonLog()
-        }
-    }, [seasonLogId])
+        loadSeasonData(seasonLogId)
+    }, [seasonLogId, loadSeasonData])
 
     if (isLoading) {
         return <div className="text-center p-4">Loading season log...</div>        
@@ -45,15 +26,7 @@ export const SeasonLogDetails = () => {
             
             <SeasonLogFilter />
             
-
-            {location.pathname === `/season-logs/${seasonLogId}` ? (
-                <SurvivorLogList seasonLog={seasonLog} />
-            ) : (
-                <Outlet context={{
-                    seasonLog,
-                    refreshSeasonLog: getAndSetSeasonLog
-                }} />
-            )}
+            <Outlet />
         </div>
     )
 }
