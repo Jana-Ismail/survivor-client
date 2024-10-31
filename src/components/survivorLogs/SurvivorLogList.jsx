@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { getSurvivorLogs } from "../../dataManagers/survivorLogs"
-import { Link } from "react-router-dom"
+import { Link, useOutletContext } from "react-router-dom"
 import { SurvivorLogCard } from "./SurvivorLogCard"
 
-export const SurvivorLogList = ({ seasonLog }) => {
+export const SurvivorLogList = ({ seasonLog: seasonLogProp}) => {
+    const context = useOutletContext()
+    const seasonLog = seasonLogProp || context?.seasonLog
     const [survivorLogs, setSurvivorLogs] = useState([])
     
     const getAndSetSurvivorLogs = () => {
@@ -13,12 +15,14 @@ export const SurvivorLogList = ({ seasonLog }) => {
     }
 
     useEffect(() => {
-        getAndSetSurvivorLogs()
-    }, [])
+        if (seasonLog) {
+            getAndSetSurvivorLogs()
+        }
+    }, [seasonLog?.id])
 
     return(
         <div className="p-4">
-            <h2 className="text-2xl font-bold mb-6">Survivors</h2>
+            {/* <h2 className="text-2xl font-bold mb-6">Survivors</h2> */}
             <div className="survivor-grid">
                 {survivorLogs.map((survivorLog) => (
                     <Link 
