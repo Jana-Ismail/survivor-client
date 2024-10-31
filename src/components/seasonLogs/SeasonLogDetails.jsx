@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
 import { getSeasonLogById } from "../../dataManagers/seasonLogs"
 import { SurvivorLogList } from "../survivorLogs/survivorLogList"
+import { SeasonLogFilter } from "./SeasonLogFilterBar"
 
 export const SeasonLogDetails = () => {
     const { seasonLogId } = useParams()
@@ -22,12 +23,21 @@ export const SeasonLogDetails = () => {
         }
     }, [seasonLogId])
 
+    // if (!seasonLog) return <div>Loading...</div>
+
     return (
-        <>
-            <div>
+        <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center my-4">
                 Season #{seasonLog.season.season_number} Log
-            </div>
-            <SurvivorLogList seasonLog={seasonLog}/>
-        </>
+            </h2>
+            
+            <SeasonLogFilter />
+            
+            {location.pathname === `/season-logs/${seasonLogId}` ? (
+                <SurvivorLogList seasonLog={seasonLog} />
+            ) : (
+                <Outlet context={{ seasonLog }} />
+            )}
+        </div>
     )
 }
