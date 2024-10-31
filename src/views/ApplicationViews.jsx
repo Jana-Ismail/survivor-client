@@ -23,10 +23,14 @@ export const ApplicationViews = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route element={<Authorized />}>
-                        {/* <Route path="/" element={<Home />} /> */}
                         <Route path="/season-logs"> 
                             <Route index element={<SeasonLogsList />} />
-                            <Route path="create" element={<SeasonLogForm />} />
+                            <Route path="create" element={
+                                    <SeasonProvider>
+                                        <SeasonLogForm />
+                                    </SeasonProvider>
+                                } 
+                            />
                             <Route 
                                 path=":seasonLogId"
                                 element={
