@@ -1,6 +1,10 @@
 import "./Survivors.css"
 
 export const SurvivorLogCard = ({ survivorLog }) => {
+    if (!survivorLog.survivor) {
+        return null
+    }
+    
     const { survivor } = survivorLog
     const placeholderImage = ""
     // const placeholderImage = "https://place-hold.it/200x250/666/fff/000.jpg&text=No Image&fontsize=16"

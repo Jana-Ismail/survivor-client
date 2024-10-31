@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { SurvivorLogCard } from "./SurvivorLogCard"
 import { SurvivorNotesList } from "../survivorNotes/SurvivorNotesList"
 import { SurvivorNoteForm } from "../survivorNotes/SurvivorNoteForm"
-import { getNotesBySurvivorLogId } from "../../dataManagers/survivorNotes"
 import { useSeasonContext } from "../../context/seasonContext"
 
 export const SurvivorLogDetails = () => {
@@ -12,7 +11,7 @@ export const SurvivorLogDetails = () => {
     const {
         seasonLog,
         getSurvivorLog,
-        survivorNotes,
+        // survivorNotes,
         loadSurvivorNotes
     } = useSeasonContext()
 
