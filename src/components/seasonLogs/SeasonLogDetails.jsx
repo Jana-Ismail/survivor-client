@@ -11,19 +11,31 @@ export const SeasonLogDetails = () => {
 
     // Use the log from state if available
     const [seasonLog, setSeasonLog] = useState(location.state?.log || null)
-
+    const [isLoading, setIsLoading] = useState(true)
+    
+    const getAndSetSeasonLog = () => {
+        setIsLoading(true)
+        getSeasonLogById(seasonLogId).then(seasonLogData => {
+            if (seasonLogData) {
+                setSeasonLog(seasonLogData)
+                setIsLoading(false)
+            }
+        })
+    }
 
     useEffect(() => {
-        if (!seasonLog && seasonLogId) {
-            getSeasonLogById(seasonLog.id).then(seasonLogData => {
-                if (seasonLogData) {
-                    setSeasonLog(seasonLogData)
-                }
-            })
+        getAndSetSeasonLog()
+
+        if (seasonLogId) {
+            getAndSetSeasonLog()
         }
     }, [seasonLogId])
 
-    // if (!seasonLog) return <div>Loading...</div>
+    if (isLoading) {
+        return <div className="text-center p-4">Loading season log...</div>        
+    }
+
+    if (!seasonLog) return <div>Loading...</div>
 
     return (
         <div className="container mx-auto px-4">
@@ -33,10 +45,14 @@ export const SeasonLogDetails = () => {
             
             <SeasonLogFilter />
             
+
             {location.pathname === `/season-logs/${seasonLogId}` ? (
                 <SurvivorLogList seasonLog={seasonLog} />
             ) : (
-                <Outlet context={{ seasonLog }} />
+                <Outlet context={{
+                    seasonLog,
+                    refreshSeasonLog: getAndSetSeasonLog
+                }} />
             )}
         </div>
     )
