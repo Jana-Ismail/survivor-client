@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './EpisodeLogs.css'
 import { createEpisodeLog } from '../../dataManagers/episodeLogs';
 import { useEffect, useState } from 'react';
@@ -26,7 +26,7 @@ export const EpisodeLogForm = () => {
     if (activeSurvivors.length > 0) {
       const initialEpisodeData = activeSurvivors.reduce((acc, survivor) => ({
         ...acc,
-        [survivor.survivor.id]: columns.reduce((colAcc, col) => ({
+        [survivor.id]: columns.reduce((colAcc, col) => ({
           ...colAcc,
           [col.id]: false
         }), {})
@@ -48,23 +48,35 @@ export const EpisodeLogForm = () => {
 
   const transformFormData = () => {
     const episodeLogData = {
-      season_log: seasonLog.id,
       episode_number: parseInt(episodeNumber),
-      survivor_actions: Object.entries(episodeData)
+      survivor_logs: Object.entries(episodeData)
         .map(([survivorLogId, actions]) => {
           const checkedActions = Object.entries(actions)
-            .filter(([_, isChecked]) => isChecked)
-            .map(([actionKey, _]) => actionKey)
+            .reduce((acc, [actionKey, isChecked]) => {
+              if (isChecked) {
+                acc[actionKey] = true
+              }
+              return acc
+            }, {})
+          // .map(([actionKey, _]) => actionKey)
+          // .filter(([_, isChecked]) => isChecked)
 
-          if (checkedActions.length > 0) {
+          // if (checkedActions.length > 0) {
+          //   return {
+          //     survivor_log: parseInt(survivorLogId),
+          //     actions: checkedActions
+          //   }
+          // }
+          // Only includ survivors that have at least one action checked
+          if (Object.keys(checkedActions).length > 0) {
             return {
-              survivor_log: parseInt(survivorLogId),
-              actions: checkedActions
+              id: parseInt(survivorLogId),
+              episode_actions: checkedActions
             }
           }
           return null
         })
-        .filter(Boolean)
+        .filter(Boolean) // remove null entries
       }
 
       return episodeLogData
@@ -75,9 +87,11 @@ export const EpisodeLogForm = () => {
 
     const newEpisodeLogData = transformFormData()
 
-    createEpisodeLog(newEpisodeLogData).then(() => {
-      refreshSeasonLog()
-      navigate(`/season-logs/${seasonLog.id}/episodes`)
+    createEpisodeLog(seasonLog.id, newEpisodeLogData).then((data) => {
+      if (data) {
+        refreshSeasonLog()
+        navigate(`/season-logs/${seasonLog.id}/episodes`)
+      }
     })
 
   }
@@ -99,7 +113,7 @@ export const EpisodeLogForm = () => {
             type="number"
             min="1"
             value={episodeNumber}
-            onChange={(e) => setEpisodeNumber(e.target.value)}
+            onChange={(e) => setEpisodeNumber(parseInt(e.target.value))}
             className="episode-number-input"
           />
         </div>
@@ -120,7 +134,7 @@ export const EpisodeLogForm = () => {
               {activeSurvivors?.map(survivor => (
                 <tr key={survivor.id}>
                   <td className="font-medium">
-                    {survivor.survivor.name}
+                    {survivor.survivor.first_name}
                   </td>
                   {columns.map(column => (
                     <td key={column.id} className="text-center">
