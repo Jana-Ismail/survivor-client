@@ -9,6 +9,8 @@
 }
 
 .survivor-card {
+    width: 100%;
+    max-width: 200px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,30 +40,30 @@
 }
 
 .survivor-info {
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: center;
 }
 
 .survivor-name {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #333;
 }
 
 .survivor-age {
-    margin: 0.5rem 0 0;
+    margin: 0.25rem 0 0;
     color: #666;
-    font-size: 1rem;
+    font-size: 0.875rem;
 }
 
 .status-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 4px 8px;
+    top: 8px;
+    right: 8px;
+    padding: 2px 6px;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: white;
 }
@@ -72,6 +74,11 @@
 
 .status-badge.jury {
     background-color: #6366f1;
+}
+
+.details-card-container {
+    width: 100%;
+    max-width: 200px;
 }
 
 @media (max-width: 768px) {
@@ -98,7 +105,8 @@
 
 
 .details-card-container .survivor-card {
-    max-width: 300px;  /* Smaller width for the detail view */
+    /* max-width: 300px;  Smaller width for the detail view */
+    width: 100%;
     margin: 0 auto;
     transform: none;  /* Disable hover transform if desired */
 }
@@ -152,3 +160,95 @@
         gap: 0.25rem;
     }
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hover\:opacity-75:hover {
+    opacity: 0.75;
+}
+
+.survivor-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.survivor-card-wrapper {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .survivor-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .survivor-card-wrapper,
+    .details-card-container,
+    .survivor-card {
+        max-width: 180px;
+    }
+    
+    .survivor-name {
+        font-size: 0.875rem;
+    }
+    
+    .survivor-age {
+        font-size: 0.75rem;
+    }
+}
+
+
+.fixed {
+    position: fixed;
+}
+
+.inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.z-50 {
+    z-index: 50;
+}
+
+.bg-opacity-50 {
+    --tw-bg-opacity: 0.5;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+    .survivor-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .survivor-card-wrapper,
+    .details-card-container,
+    .survivor-card {
+        max-width: 150px;
+    }
+    
+    .survivor-name {
+        font-size: 0.875rem;
+    }
+    
+    .survivor-age {
+        font-size: 0.75rem;
+    }
+
+    .status-badge {
+        font-size: 0.625rem;
+        padding: 2px 4px;
+    }
+}
+
