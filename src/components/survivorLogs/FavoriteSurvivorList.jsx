@@ -1,18 +1,30 @@
+import { useEffect, useState } from "react"
 import { useSeasonContext } from "../../context/seasonContext"
+import { getFavoriteSurvivors } from "../../dataManagers/survivorLogs"
 import { SurvivorLogCard } from "./SurvivorLogCard"
 
 export const FavoriteSurvivorList = () => {
+    const [favoriteSurvivors, setFavoriteSurvivors] = useState([])
     const { 
         seasonLog, 
-        survivorLogs, 
         changeWinnerPick,
         winnerPick,
         activeSurvivors
      } = useSeasonContext()
 
-    const getAndSetFavorites = () => {
-        
+    const getAndSetFavorites = async () => {
+        const favSurvivorsArray = await getFavoriteSurvivors(seasonLog?.id)
+        // const favSurvivorsArray = await response.json
+        if (favSurvivorsArray) {
+            setFavoriteSurvivors(favSurvivorsArray)
+        }
     }
+
+    useEffect(() => {
+        if (seasonLog.id) {
+            getAndSetFavorites()
+        }
+    }, [seasonLog?.id])
     
     const handleWinnerPickChange = async (e) => {
         e.preventDefault()
@@ -44,7 +56,7 @@ export const FavoriteSurvivorList = () => {
                             <option value="">Choose a survivor...</option>
                             {activeSurvivors.map(survivor => (
                                 <option key={survivor.id} value={survivor.id}>
-                                    {survivor.survivor.first_name} {survivor.survivor.last_name[0]}
+                                    {survivor.survivor.first_name} {survivor.survivor.last_name}
                                 </option>
                             ))}
                         </select>
@@ -65,6 +77,22 @@ export const FavoriteSurvivorList = () => {
                 <h2 className="text-2xl font-bold mb-4">
                     Favorite Survivors from Season #{seasonLog?.season?.season_number}
                 </h2>
+                {favoriteSurvivors.length > 0 ? (
+                    <div>
+                        <h3 className="text-xl font-semibold mb-4">Current Season Favorites:</h3>
+                        <div className="flex flex-wrap gap-6">
+                            {favoriteSurvivors.map(favorite => (
+                                <div key={favorite.id} className="details-card-container">
+                                    <SurvivorLogCard 
+                                        survivorLog={favorite.survivor_log}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <p>No favorite survivors selected yet.</p>
+                )}
             </div>
         </div>
     )
