@@ -148,3 +148,38 @@
 .text-gray-700 {
     color: #374151;
 }
+
+.episode-table td svg {
+    color: #10b981; /* Emerald-500 from Tailwind */
+    margin: 0 auto;
+}
+
+.episode-form-card + .episode-form-card {
+    margin-top: 2rem;
+}
+
+.episode-form-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Add some hover effects for better UX */
+.episode-form-card {
+    transition: all 0.2s ease-in-out;
+}
+
+.episode-form-card:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkmark {
+    display: inline-block;
+    color: #10b981; /* Emerald-500 from Tailwind */
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.episode-table td .checkmark {
+    margin: 0 auto;
+}
