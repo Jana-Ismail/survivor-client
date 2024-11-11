@@ -10,3 +10,11 @@ export const createEpisodeLog = (seasonLogId, episodeLogData) => {
         body: JSON.stringify(episodeLogData)
     })
 }
+
+export const getEpisodeLogs = (seasonLogId) => {
+    return fetchWithResponse(`/season-logs/${seasonLogId}/episodes`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`                
+        },        
+    })
+}

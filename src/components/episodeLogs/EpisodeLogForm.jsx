@@ -1,14 +1,18 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './EpisodeLogs.css'
 import { createEpisodeLog } from '../../dataManagers/episodeLogs';
 import { useEffect, useState } from 'react';
 import { useSeasonContext } from '../../context/seasonContext';
 
 export const EpisodeLogForm = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const location = useLocation()
   const { seasonLog, refreshSeasonLog, activeSurvivors} = useSeasonContext()
   
-  const [episodeNumber, setEpisodeNumber] = useState(1)
+  const nextEpisode = location.state?.next_episode || 1
+  const maxEpisodes = location.state?.total_episodes || 1
+
+  const [episodeNumber, setEpisodeNumber] = useState(nextEpisode)
   const [episodeData, setEpisodeData] = useState({})
   
   const columns = [
@@ -21,6 +25,19 @@ export const EpisodeLogForm = () => {
     { id: 'voted_out', label: 'Voted Out' }
   ]
 
+  // useEffect(() => {
+  //   if (episodeLogs) {
+  //     setEpisodeNumber(episodeLogs.next_episode)
+  //     setMaxEpisodes(episodeLogs.total_episodes)
+  //   }
+  // }, [episodeLogs])
+
+  // useEffect(() => {
+  //   if (episodeLogs) {
+  //     setMaxEpisodes(episodeLogs.total_episodes)
+  //     setNextEpisode(episodeLogs.nextEpisode)
+  //   }
+  // }, [episodeLogs])
 
   useEffect(() => {
     if (activeSurvivors.length > 0) {
@@ -58,16 +75,8 @@ export const EpisodeLogForm = () => {
               }
               return acc
             }, {})
-          // .map(([actionKey, _]) => actionKey)
-          // .filter(([_, isChecked]) => isChecked)
 
-          // if (checkedActions.length > 0) {
-          //   return {
-          //     survivor_log: parseInt(survivorLogId),
-          //     actions: checkedActions
-          //   }
-          // }
-          // Only includ survivors that have at least one action checked
+          // Only include survivors that have at least one action checked
           if (Object.keys(checkedActions).length > 0) {
             return {
               id: parseInt(survivorLogId),
@@ -106,12 +115,13 @@ export const EpisodeLogForm = () => {
         
         <div className="mb-6">
           <label htmlFor="episodeNumber" className="block text-sm font-medium text-gray-700">
-            Episode Number
+            Episode {episodeNumber} of {maxEpisodes}
           </label>
           <input
             id="episodeNumber"
             type="number"
-            min="1"
+            min={episodeNumber}
+            max={maxEpisodes}
             value={episodeNumber}
             onChange={(e) => setEpisodeNumber(parseInt(e.target.value))}
             className="episode-number-input"

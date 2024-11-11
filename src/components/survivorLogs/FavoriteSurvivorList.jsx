@@ -9,6 +9,10 @@ export const FavoriteSurvivorList = () => {
         winnerPick,
         activeSurvivors
      } = useSeasonContext()
+
+    const getAndSetFavorites = () => {
+        
+    }
     
     const handleWinnerPickChange = async (e) => {
         e.preventDefault()
@@ -40,7 +44,7 @@ export const FavoriteSurvivorList = () => {
                             <option value="">Choose a survivor...</option>
                             {activeSurvivors.map(survivor => (
                                 <option key={survivor.id} value={survivor.id}>
-                                    {survivor.survivor.first_name} {survivor.survivor.last_name}
+                                    {survivor.survivor.first_name} {survivor.survivor.last_name[0]}
                                 </option>
                             ))}
                         </select>
